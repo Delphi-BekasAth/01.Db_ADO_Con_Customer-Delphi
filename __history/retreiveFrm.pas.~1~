@@ -1,0 +1,57 @@
+unit retreiveFrm;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, datamodule1;
+
+type
+  TretreiveForm = class(TForm)
+    ListBox1: TListBox;
+    showBtn: TButton;
+    procedure showBtnClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  retreiveForm: TretreiveForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TretreiveForm.showBtnClick(Sender: TObject);
+var
+  id : integer;
+  name, phone, str : string;
+  balance : double;
+begin
+
+  with dm1 do
+  begin
+
+    cusTbl.First;
+
+    while NOT cusTbl.Eof do
+    begin
+
+      id := cusTbl['ID'];
+      name := cusTbl['NAME'];
+      phone := cusTbl['PHONE'];
+      balance := cusTbl['BALANCE'];
+
+      ListBox1.Items.Add(IntToStr(id) + ') ' + name + ' ' + phone + ' ' + FloatToStr(balance));
+
+      cusTbl.Next;
+
+    end;
+
+
+  end;
+end;
+
+end.
